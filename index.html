@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TyraelTyrant • Tools</title>
+  <style>
+    body {margin:0;background:#000;color:#0f0;font-family:'Courier New',monospace;overflow-x:hidden}
+    canvas {position:fixed;top:0;left:0;width:100%;height:100%;opacity:0.3;pointer-events:none}
+    .container {position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px}
+    h1 {font-size:60px;margin:0 0 20px;text-shadow:0 0 30px #0f0;letter-spacing:4px}
+    p {max-width:700px;text-align:center;font-size:18px;line-height:1.8;margin:20px 0;opacity:0.9}
+    .tools {display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;width:100%;max-width:1200px;margin:60px 0}
+    .card {background:rgba(0,50,0,0.7);border:2px solid #0f0;padding:30px;border-radius:15px;text-align:center;transition:0.4s;box-shadow:0 0 30px rgba(0,255,0,0.4)}
+    .card:hover {transform:translateY(-15px);box-shadow:0 0 50px #0ff;background:rgba(0,80,0,0.9)}
+    .card h2 {margin:0 0 15px;color:#0ff;text-shadow:0 0 15px}
+    .card a {color:#0f0;font-size:20px;font-weight:bold;text-decoration:none;display:block;margin-top:20px}
+    .card a:hover {color:#0ff;text-shadow:0 0 20px}
+    footer {margin-top:auto;padding:40px;text-align:center;font-size:14px}
+    footer a {color:#0ff;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+    footer a:hover {text-decoration:underline}
+  </style>
+</head>
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="container">
+  <h1>TYRAELTYRANT</h1>
+  <p>Creator of elite tools for creators</p>
+
+  <div class="tools">
+    <div class="card">
+      <h2>Resolve Sync</h2>
+      <p>DaVinci Resolve markers → perfect SRT subtitles in one click</p>
+      <a href="https://subtitlesync.onrender.com" target="_blank">Launch Tool →</a>
+    </div>
+
+    <!-- Add more tools here later -->
+    <!--
+    <div class="card">
+      <h2>Next Tool</h2>
+      <p>Description</p>
+      <a href="#" target="_blank">Coming Soon</a>
+    </div>
+    -->
+  </div>
+
+  <footer>
+    Made by <strong>TyraelTyrant</strong> •
+    <a href="https://www.youtube.com/@GroovyKidsTunesOfficial" target="_blank">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#0ff"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.016 3.016 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      GroovyKidsTunesOfficial
+    </a>
+  </footer>
+</div>
+
+<script>
+// Matrix rain background
+const canvas = document.getElementById('matrix');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+const fontSize = 14;
+let drops = [];
+function init() { drops = Array(Math.floor(canvas.width/fontSize)).fill(1); }
+init();
+function draw() {
+  ctx.fillStyle = 'rgba(0,0,0,0.05)'; ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = '#0f0'; ctx.font = fontSize+'px monospace';
+  for(let i=0;i<drops.length;i++){
+    const text = chars[Math.floor(Math.random()*chars.length)];
+    ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+    if(drops[i]*fontSize>canvas.height&&Math.random()>0.975) drops[i]=0;
+    drops[i]++;
+  }
+}
+setInterval(draw,35);
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;init();});
+</script>
+</body>
+</html>
