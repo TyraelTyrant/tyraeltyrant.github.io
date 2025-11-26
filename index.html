@@ -3,110 +3,100 @@
 <head>
 <meta charset="UTF-8">
 <title>TyraelTyrant • Tools</title>
-<link href="https://fonts.googleapis.com/css2?family=OCR+A+Std&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=OCR+A+Std&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  body {margin:0;background:#000;color:#0f0;font-family:'Fira Code',monospace;overflow:hidden}
-  canvas {position:fixed;top:0;left:0;width:100%;height:100%;opacity:0.25;pointer-events:none}
-  .container {position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 20px}
-  h1 {font-family:'OCR A Std',monospace;font-size:60px;margin:0 0 10px;text-shadow:0 0 20px #0f0;letter-spacing:6px}
-  .tagline {font-size:18px;margin-bottom:40px;opacity:0.8}
-  .tools {display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:30px;width:100%;max-width:1200px}
-  .card {background:#000;border:2px solid #0f0;padding:25px;position:relative;box-shadow:0 0 15px #0f0}
-  .card::before,.card::after {content:"█";position:absolute;font-size:20px;color:#0f0}
-  .card::before {top:-2px;left:-2px}
-  .card::after {bottom:-2px;right:-2px}
-  .card h2 {margin:0 0 15px;color:#ff00ff;text-shadow:0 0 10px #ff00ff}
-  .card p {margin:10px 0;font-size:15px}
-  .card a {color:#0f0;font-weight:bold;text-decoration:none;display:inline-block;margin-top:15px;padding:8px 15px;border:1px solid #0f0;transition:0.3s}
-  .card a:hover {background:#0f0;color:#000;box-shadow:0 0 20px #0f0}
-  footer {margin-top:60px;padding:20px;font-size:14px;opacity:0.7}
-  footer a {color:#ff00ff}
-  #quotePopup {position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#000;border:2px solid #0f0;padding:30px;max-width:600px;text-align:center;display:none;z-index:999;box-shadow:0 0 40px #0f0;font-size:20px}
+  body {margin:0;background:linear-gradient(135deg,#1a0033,#330066,#ff00cc);color:#fff;font-family:'Fira Code',monospace;overflow:hidden;height:100vh;position:relative}
+  canvas {position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:0.6}
+  .container {position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center}
+  h1 {font-family:'OCR A Std',monospace;font-size:70px;margin:0 0 10px;background:linear-gradient(90deg,#0ff,#f0f,#ff0);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:0 0 30px #f0f;letter-spacing:8px}
+  .tagline {font-size:22px;margin:20px 0;background:linear-gradient(90deg,#0ff,#ff00ff);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:0 0 20px #0ff}
+  .tools {display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:40px;width:100%;max-width:1200px;margin:60px 0}
+  .card {background:rgba(0,0,30,0.6);border:3px solid #0ff;padding:35px;border-radius:20px;box-shadow:0 0 40px #0ff,0 0 80px #f0f;transition:all 0.4s}
+  .card:hover {transform:translateY(-20px);box-shadow:0 0 80px #0ff,0 0 120px #ff00ff}
+  .card h2 {margin:0 0 20px;color:#0ff;text-shadow:0 0 20px #0ff;font-size:28px}
+  .card p {margin:15px 0;opacity:0.9}
+  .card a {color:#000;background:#0ff;padding:15px 30px;border-radius:50px;font-weight:bold;text-decoration:none;display:inline-block;margin-top:20px;box-shadow:0 0 30px #0ff;transition:0.3s}
+  .card a:hover {background:#ff00ff;color:#fff;box-shadow:0 0 50px #ff00ff;transform:scale(1.1)}
+  footer {margin-top:auto;padding:40px;font-size:16px}
+  footer a {color:#0ff;display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+  footer a:hover {text-decoration:underline}
+  #quotePopup {position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#000;border:4px solid #0ff;padding:40px;max-width:700px;text-align:center;display:none;z-index:999;box-shadow:0 0 80px #0ff;font-size:24px;line-height:1.6}
 </style>
 </head>
 <body>
 
-<canvas id="matrix"></canvas>
+<canvas id="particles"></canvas>
 
 <div class="container">
   <h1>TYRAELTYRANT</h1>
-  <p class="tagline">0-day tools for creators • since 2025</p>
+  <p class="tagline">TyrantToolz • since 2025</p>
 
   <div class="tools">
     <div class="card">
       <h2>RESOLVE SYNC v1.0</h2>
-      <p>DaVinci Resolve markers → perfect SRT subtitles<br>25 markers tested • 0-day sync</p>
+      <p>DaVinci Resolve markers → perfect SRT subtitles<br>25 markers tested • instant sync</p>
       <a href="https://subtitlesync.onrender.com" target="_blank">[ LAUNCH TOOL ]</a>
     </div>
-
-    <!-- Add more cards here later -->
   </div>
 
   <footer>
-    Gentoo • Ubuntu Studio • Blender • IRC survivor • <a href="https://www.youtube.com/@GroovyKidsTunesOfficial" target="_blank">YouTube</a>
+    Created by TyraelTyrant •
+    <a href="https://www.youtube.com/@GroovyKidsTunesOfficial" target="_blank">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#0ff"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.016 3.016 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      GroovyKidsTunesOfficial
+    </a>
   </footer>
 </div>
 
 <div id="quotePopup"></div>
 
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
-// Matrix rain
-const canvas = document.getElementById('matrix');
-const ctx = canvas.getContext('2d');
-canvas.width = innerWidth; canvas.height = innerHeight;
-const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-const fontSize = 14;
-let drops = [];
-function init() { drops = Array(Math.floor(canvas.width/fontSize)).fill(1); }
-init();
-function draw() {
-  ctx.fillStyle = 'rgba(0,0,0,0.05)'; ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle = '#0f0'; ctx.font = fontSize+'px monospace';
-  for(let i=0;i<drops.length;i++){
-    const text = chars[Math.floor(Math.random()*chars.length)];
-    ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-    if(drops[i]*fontSize>canvas.height&&Math.random()>0.975) drops[i]=0;
-    drops[i]++;
+  particlesJS("particles", {
+    "particles": {
+      "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+      "color": { "value": ["#00ffff","#ff00ff","#ffff00"] },
+      "shape": { "type": "circle" },
+      "opacity": { "value": 0.8, "random": true },
+      "size": { "value": 4, "random": true },
+      "line_linked": { "enable": false },
+      "move": { "enable": true, "speed": 2, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
+    },
+    "interactivity": {
+      "detect_on": "canvas",
+      "events": { "onhover": { "enable": true, "mode": "repulse" }, "resize": true }
+    },
+    "retina_detect": true
+  });
+
+  const quotes = [
+    "The things you own end up owning you.",
+    "It's only after we've lost everything that we're free to do anything.",
+    "We buy things we don't need with money we don't have to impress people we don't like.",
+    "Sticking feathers up your butt does not make you a chicken.",
+    "You're not your job. You're not how much money you have in the bank.",
+    "I say never be complete. I say stop being perfect.",
+    "This is your life, and it's ending one minute at a time.",
+    "On a long enough timeline, the survival rate for everyone drops to zero."
+  ];
+
+  let last = "";
+  function showQuote() {
+    let q;
+    do { q = quotes[Math.floor(Math.random()*quotes.length)]; } while (q === last);
+    last = q;
+    const p = document.getElementById('quotePopup');
+    p.textContent = q;
+    p.style.display = 'block';
+    setTimeout(() => p.style.display = 'none', 4000);
   }
-}
-setInterval(draw,35);
-window.addEventListener('resize',()=>{canvas.width=innerWidth;canvas.height=innerHeight;init();});
 
-// Fight Club quotes
-const quotes = [
-  "The first rule of Fight Club is: you do not talk about Fight Club.",
-  "It's only after we've lost everything that we're free to do anything.",
-  "I am Jack's complete lack of surprise.",
-  "Self-improvement is masturbation. Now, self-destruction...",
-  "You are not a beautiful and unique snowflake.",
-  "We buy things we don't need with money we don't have to impress people we don't like.",
-  "On a long enough timeline, the survival rate for everyone drops to zero.",
-  "Sticking feathers up your butt does not make you a chicken."
-];
-
-let lastQuote = "";
-function showQuote() {
-  let q;
-  do { q = quotes[Math.floor(Math.random()*quotes.length)]; } while (q === lastQuote);
-  lastQuote = q;
-  const popup = document.getElementById('quotePopup');
-  popup.textContent = q;
-  popup.style.display = 'block';
-  document.body.style.filter = 'invert(1)';
-  setTimeout(() => {
-    popup.style.display = 'none';
-    document.body.style.filter = '';
-  }, 3000);
-}
-
-// Ctrl + Alt + T trigger
-document.addEventListener('keydown', e => {
-  if (e.ctrlKey && e.altKey && e.key === 't') {
-    e.preventDefault();
-    showQuote();
-  }
-});
+  document.addEventListener('keydown', e => {
+    if (e.ctrlKey && e.altKey && e.key.toLowerCase() === 't') {
+      e.preventDefault();
+      showQuote();
+    }
+  });
 </script>
 </body>
 </html>
