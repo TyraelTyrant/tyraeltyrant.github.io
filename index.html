@@ -2,54 +2,55 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>TyraelTyrant • Tools</title>
-<link href="https://fonts.googleapis.com/css2?family=OCR+A+Std&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+<title>TyraelTyrant • TyrantToolz</title>
 <style>
-  body {margin:0;background:linear-gradient(135deg,#1a0033,#330066,#ff00cc);color:#fff;font-family:'Fira Code',monospace;overflow:hidden;height:100vh;position:relative}
-  canvas {position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
-  .container {position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center}
-  h1 {font-family:'OCR A Std',monospace;font-size:70px;margin:0 0 10px;background:linear-gradient(90deg,#0ff,#f0f,#ff0);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:0 0 30px #f0f;letter-spacing:8px}
-  .tagline {font-size:22px;margin:20px 0;background:linear-gradient(90deg,#0ff,#ff00ff);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:0 0 20px #0ff}
-  .tools {display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:40px;width:100%;max-width:1200px;margin:60px 0}
-  .card {background:rgba(0,0,30,0.6);border:3px solid #0ff;padding:35px;border-radius:20px;box-shadow:0 0 40px #0ff,0 0 80px #f0f;transition:all 0.4s}
-  .card:hover {transform:translateY(-20px);box-shadow:0 0 80px #0ff,0 0 120px #ff00ff}
-  .card h2 {margin:0 0 20px;color:#0ff;text-shadow:0 0 20px #0ff;font-size:28px}
+  body {margin:0;background:#000;color:#0f0;font-family:'Courier New',monospace;overflow:hidden;height:100vh;position:relative}
+  canvas {position:fixed;top:0;left:0;width:100%;height:100%;opacity:0.6;pointer-events:none}
+  .crt::before {content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.1) 0px,rgba(0,0,0,0) 2px,rgba(0,0,0,0.1) 4px);pointer-events:none;z-index:2}
+  .container {position:relative;z-index:3;padding:40px;display:flex;min-height:100vh;align-items:center}
+  .sidebar {width:300px;border-right:4px solid #0ff;padding-right:30px;margin-right:40px}
+  .sidebar h1 {font-size:48px;margin:0 0 30px;color:#0ff;text-shadow:0 0 20px #0ff;letter-spacing:5px}
+  .main {flex:1}
+  .card {background:rgba(0,20,0,0.8);border:3px solid #0ff;padding:30px;margin-bottom:40px;border-radius:0;box-shadow:0 0 30px #0ff}
+  .card h2 {margin:0 0 20px;color:#0ff;text-shadow:0 0 15px;font-size:32px}
   .card p {margin:15px 0;opacity:0.9}
-  .card a {color:#000;background:#0ff;padding:15px 30px;border-radius:50px;font-weight:bold;text-decoration:none;display:inline-block;margin-top:20px;box-shadow:0 0 30px #0ff;transition:0.3s}
-  .card a:hover {background:#ff00ff;color:#fff;box-shadow:0 0 50px #ff00ff;transform:scale(1.1)}
-  footer {margin-top:auto;padding:40px;font-size:16px}
-  footer a {color:#0ff;display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+  .card a {color:#000;background:#0ff;padding:15px 40px;font-weight:bold;text-decoration:none;display:inline-block;margin-top:20px;box-shadow:0 0 20px #0ff;transition:0.3s}
+  .card a:hover {background:#ff00ff;color:#fff;box-shadow:0 0 40px #ff00ff}
+  footer {position:absolute;bottom:20px;left:50%;transform:translateX(-50%);font-size:14px}
+  footer a {color:#0ff;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
   footer a:hover {text-decoration:underline}
   #quotePopup {position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#000;border:4px solid #0ff;padding:40px;max-width:700px;text-align:center;display:none;z-index:999;box-shadow:0 0 80px #0ff;font-size:24px;line-height:1.6}
 </style>
 </head>
-<body>
+<body class="crt">
 
 <canvas id="particles"></canvas>
 
 <div class="container">
-  <h1>TYRAELTYRANT</h1>
-  <p class="tagline">TyrantToolz • since 2025</p>
+  <div class="sidebar">
+    <h1>TYRAELTYRANT</h1>
+    <p>TyrantToolz • since 2025</p>
+  </div>
 
-  <div class="tools">
+  <div class="main">
     <div class="card">
       <h2>RESOLVE SYNC v1.0</h2>
       <p>DaVinci Resolve markers → perfect SRT subtitles<br>25 markers tested • instant sync</p>
       <a href="https://subtitlesync.onrender.com" target="_blank">[ LAUNCH TOOL ]</a>
     </div>
   </div>
-
-  <footer>
-    <div style="display:flex;align-items:center;justify-content:center;gap:12px">
-      Created by <strong>TyraelTyrant</strong>
-      <span>•</span>
-      <a href="https://www.youtube.com/@GroovyKidsTunesOfficial" target="_blank">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="#0ff"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.016 3.016 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-        GroovyKidsTunesOfficial
-      </a>
-    </div>
-  </footer>
 </div>
+
+<footer>
+  <div style="display:flex;align-items:center;gap:12px">
+    Created by <strong>TyraelTyrant</strong>
+    <span>•</span>
+    <a href="https://www.youtube.com/@GroovyKidsTunesOfficial" target="_blank">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#0ff"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.016 3.016 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      GroovyKidsTunesOfficial
+    </a>
+  </div>
+</footer>
 
 <div id="quotePopup"></div>
 
@@ -58,16 +59,13 @@
   particlesJS("particles", {
     "particles": {
       "number": { "value": 80 },
-      "color": { "value": ["#00ffff","#ff00ff","#ffcc00","#33ff99"] },
+      "color": { "value": ["#00ffff","#ff00ff","#00ff41"] },
       "shape": { "type": "circle" },
-      "opacity": { "value": 0.8, "random": true, "anim": { "enable": true, "speed": 1 } },
-      "size": { "value": 6, "random": true, "anim": { "enable": true, "speed": 4, "size_min": 1 } },
-      "move": { "enable": true, "speed": 2, "direction": "none", "random": true, "out_mode": "out" }
+      "opacity": { "value": 0.7, "random": true, "anim": { "enable": true, "speed": 1 } },
+      "size": { "value": 5, "random": true },
+      "move": { "enable": true, "speed": 1.5, "direction": "none", "random": true }
     },
-    "interactivity": {
-      "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" } },
-      "modes": { "repulse": { "distance": 120 }, "push": { "particles_nb": 6 } }
-    }
+    "interactivity": { "events": { "onhover": { "enable": true, "mode": "repulse" } } }
   });
 
   const quotes = [
@@ -80,19 +78,18 @@
     "On a long enough timeline, the survival rate for everyone drops to zero."
   ];
 
-  let lastQuote = "";
+  let last = "";
   function showQuote() {
     let q;
-    do { q = quotes[Math.floor(Math.random()*quotes.length)]; } while (q === lastQuote);
-    lastQuote = q;
-    const popup = document.getElementById('quotePopup');
-    popup.textContent = q;
-    popup.style.display = 'block';
-    setTimeout(() => popup.style.display = 'none', 4500);
+    do { q = quotes[Math.floor(Math.random()*quotes.length)]; } while (q === last);
+    last = q;
+    const p = document.getElementById('quotePopup');
+    p.textContent = q;
+    p.style.display = 'block';
+    setTimeout(() => p.style.display = 'none', 4000);
   }
 
-  // FIXED: now works 100%
-  document.addEventListener('keydown', function(e) {
+  document.addEventListener('keydown', e => {
     if (e.ctrlKey && e.altKey && e.key === 't') {
       e.preventDefault();
       showQuote();
