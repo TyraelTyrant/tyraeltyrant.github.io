@@ -1,34 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Background Image Remover</title>
+<html>
+<head>
+  <title>TyrantRemove</title>
+  <style>
+    body {background:#000;color:#0f0;font-family:Arial;text-align:center;padding:40px}
+    h1 {font-size:3em}
+    #d {border:5px dashed #0f0;padding:80px;margin:40px auto;max-width:800px;cursor:pointer;background:#111}
+    canvas {max-width:90%;margin:30px auto;display:none;box-shadow:0 0 40px #0f0;border-radius:20px}
+  </style>
+</head>
+<body>
+  <h1>TyrantRemove</h1>
+  <div id="d" onclick="document.getElementById('f').click()">
+    DROP IMAGE HERE<br><br>or click
+    <input type="file" id="f" accept="image/*" style="display:none">
+  </div>
+  <canvas id="c"></canvas>
+  <p>Loading model... (15s first time)</p>
 
-    <meta name="keywords" content="background image remover, remove background free, remove bg" />
-    <meta name="author" content="Addy Osmani and Transformers.js" />
-    <link rel="favicon" href="favicon.ico" />
-    <meta name="description" content="Remove image backgrounds automatically in seconds with just one click. Don't spend hours manually doing it yourself. " />
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://bg.addy.ie/" />
-    <meta property="og:title" content="Background Image Remover" />
-    <meta property="og:description" content="Remove image backgrounds automatically in seconds with just one click. Don't spend hours manually doing it yourself. " />
-    <meta property="og:image" content="https://bg.addy.ie/meta.jpg" />
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://bg.addy.ie/" />
-    <meta property="twitter:title" content="Background Image Remover" />
-    <meta property="twitter:description" content="Remove image backgrounds automatically in seconds with just one click. Don't spend hours manually doing it yourself. " />
-    <meta property="twitter:image" content="https://bg.addy.ie/meta.jpg" />
-    <script type="module" crossorigin src="/assets/index-CD82NZ-B.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/vendor-hNfcizNV.js">
-    <link rel="modulepreload" crossorigin href="/assets/transformers-BOsqbiXW.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-ofHunnQK.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix"></script>
+  <script>
+    const c = document.getElementById('c'), ctx = c.getContext('2d');
+    let model;
+    bodyPix.load().then(m => model = m);
+    document.getElementById('f').onchange = e => {
+      const img = new Image();
+      img.onload = async () => {
+        c.width = img.width; c.height = img.height; ctx.drawImage(img,0,0);
+        c.style.display = 'block';
+        const {data:mask} = await model.segmentPerson(img);
+        const px = ctx.getImageData(0,0,c.width,c.height);
+        for(let i=0;i<mask.length;i++) if(!mask[i]) px.data[i*4+3]=0;
+        ctx.putImageData(px,0,0);
+      };
+      img.src = URL.createObjectURL(e.target.files[0]);
+    };
+  </script>
+</body>
 </html>
