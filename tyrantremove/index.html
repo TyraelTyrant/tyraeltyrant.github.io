@@ -1,41 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TyrantRemove</title>
+  <meta charset="utf-8">
+  <title>TyrantRemove – Best Background Remover</title>
   <style>
-    body {background:#000;color:#0f0;font-family:Arial;text-align:center;padding:40px}
-    h1 {font-size:3em}
-    #d {border:5px dashed #0f0;padding:80px;margin:40px auto;max-width:800px;cursor:pointer;background:#111}
-    canvas {max-width:90%;margin:30px auto;display:none;box-shadow:0 0 40px #0f0;border-radius:20px}
+    body{font-family:Arial;background:#000;color:#0f0;text-align:center;padding:40px;margin:0}
+    h1{font-size:3em;color:#0f0}
+    #drop{border:5px dashed #0f0;padding:100px;margin:40px auto;max-width:900px;cursor:pointer;background:#111;border-radius:20px}
+    canvas{max-width:95%;margin:40px auto;display:none;box-shadow:0 0 50px #0f0;border-radius:20px}
+    button{padding:16px 40px;font-size:20px;background:#0f0;color:#000;border:none;border-radius:12px;cursor:pointer}
   </style>
 </head>
 <body>
   <h1>TyrantRemove</h1>
-  <div id="d" onclick="document.getElementById('f').click()">
-    DROP IMAGE HERE<br><br>or click
-    <input type="file" id="f" accept="image/*" style="display:none">
+  <p>Drop ANY image (person, pet, product, logo…) — background removed instantly</p>
+  <div id="drop">
+    DROP IMAGE HERE<br><br>
+    <button onclick="document.getElementById('file').click()">Choose File</button>
+    <input type="file" id="file" accept="image/*" style="display:none">
   </div>
-  <canvas id="c"></canvas>
-  <p>Loading model... (15s first time)</p>
+  <canvas id="canvas"></canvas>
+  <p id="status">Loading best-in-class AI model… (30–60 sec first time only)</p>
 
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix"></script>
-  <script>
-    const c = document.getElementById('c'), ctx = c.getContext('2d');
+  <script type="module">
+    import { U2Net } from "https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2";
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const status = document.getElementById('status');
     let model;
-    bodyPix.load().then(m => model = m);
-    document.getElementById('f').onchange = e => {
+
+    status.textContent = "Downloading model… (60 sec first time)";
+    const remover = await U2Net.create();
+    status.textContent = "Ready! Drop any image now";
+    model = remover;
+
+    function process(file) {
+      if (!file) return;
       const img = new Image();
       img.onload = async () => {
-        c.width = img.width; c.height = img.height; ctx.drawImage(img,0,0);
-        c.style.display = 'block';
-        const {data:mask} = await model.segmentPerson(img);
-        const px = ctx.getImageData(0,0,c.width,c.height);
-        for(let i=0;i<mask.length;i++) if(!mask[i]) px.data[i*4+3]=0;
-        ctx.putImageData(px,0,0);
+        canvas.width = img.width; canvas.height = img.height;
+        ctx.drawImage(img, 0, 0); canvas.style.display = 'block';
+        status.textContent = "Removing background…";
+        const mask = await model.removeBackground(img);
+        const result = await model.applyMask(img, mask);
+        canvas.width = result.width; canvas.height = result.height;
+        ctx.putImageData(result, 0, 0);
+        status.textContent = "DONE! Right-click → Save as PNG";
       };
-      img.src = URL.createObjectURL(e.target.files[0]);
-    };
+      img.src = URL.createObjectURL(file);
+    }
+
+    document.getElementById('file').onchange = e => process(e.target.files[0]);
+    document.body.ondragover = e => e.preventDefault();
+    document.body.ondrop = e => { e.preventDefault(); process(e.dataTransfer.files[0]); };
   </script>
+  <p style="margin-top:100px">100% client-side • Works on ANYTHING • Offline after first load</p>
 </body>
 </html>
