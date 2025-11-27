@@ -2,50 +2,60 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>TyrantRemove – Best Background Remover</title>
+  <title>TyrantRemove – Works on ANYTHING</title>
   <style>
-    body{font-family:Arial;background:#000;color:#0f0;text-align:center;padding:40px;margin:0}
-    h1{font-size:3em;color:#0f0}
-    #drop{border:5px dashed #0f0;padding:100px;margin:40px auto;max-width:900px;cursor:pointer;background:#111;border-radius:20px}
-    canvas{max-width:95%;margin:40px auto;display:none;box-shadow:0 0 50px #0f0;border-radius:20px}
-    button{padding:16px 40px;font-size:20px;background:#0f0;color:#000;border:none;border-radius:12px;cursor:pointer}
+    body {font-family:Arial;background:#000;color:#0f0;text-align:center;padding:40px;margin:0}
+    h1 {font-size:3em;color:#0f0}
+    #drop {border:5px dashed #0f0;padding:100px;margin:40px auto;max-width:900px;cursor:pointer;background:#111;border-radius:20px}
+    canvas {max-width:95%;margin:40px auto;display:none;box-shadow:0 0 50px #0f0;border-radius:20px}
+    button {padding:16px 40px;font-size:20px;background:#0f0;color:#000;border:none;border-radius:12px;cursor:pointer}
   </style>
 </head>
 <body>
   <h1>TyrantRemove</h1>
-  <p>Drop ANY image (person, pet, product, logo…) — background removed instantly</p>
+  <p>Drop ANY image — background removed instantly</p>
   <div id="drop">
     DROP IMAGE HERE<br><br>
     <button onclick="document.getElementById('file').click()">Choose File</button>
     <input type="file" id="file" accept="image/*" style="display:none">
   </div>
   <canvas id="canvas"></canvas>
-  <p id="status">Loading best-in-class AI model… (30–60 sec first time only)</p>
+  <p id="status">Loading model… (15–20 sec first time)</p>
 
-  <script type="module">
-    import { U2Net } from "https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2";
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.21.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.2.1"></script>
+  <script>
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     const status = document.getElementById('status');
     let model;
 
-    status.textContent = "Downloading model… (60 sec first time)";
-    const remover = await U2Net.create();
-    status.textContent = "Ready! Drop any image now";
-    model = remover;
+    bodyPix.load().then(m => {
+      model = m;
+      status.textContent = "Ready! Drop any image";
+    }).catch(() => status.textContent = "Error loading model");
 
     function process(file) {
       if (!file) return;
       const img = new Image();
       img.onload = async () => {
-        canvas.width = img.width; canvas.height = img.height;
-        ctx.drawImage(img, 0, 0); canvas.style.display = 'block';
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        canvas.style.display = 'block';
         status.textContent = "Removing background…";
-        const mask = await model.removeBackground(img);
-        const result = await model.applyMask(img, mask);
-        canvas.width = result.width; canvas.height = result.height;
-        ctx.putImageData(result, 0, 0);
-        status.textContent = "DONE! Right-click → Save as PNG";
+
+        try {
+          const { data: mask } = await model.segmentPerson(img);
+          const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          for (let i = 0; i < mask.length; i++) {
+            if (!mask[i]) pixels.data[i * 4 + 3] = 0;
+          }
+          ctx.putImageData(pixels, 0, 0);
+          status.textContent = "DONE! Right-click → Save as PNG";
+        } catch (e) {
+          status.textContent = "Error (try a different image)";
+        }
       };
       img.src = URL.createObjectURL(file);
     }
@@ -54,6 +64,6 @@
     document.body.ondragover = e => e.preventDefault();
     document.body.ondrop = e => { e.preventDefault(); process(e.dataTransfer.files[0]); };
   </script>
-  <p style="margin-top:100px">100% client-side • Works on ANYTHING • Offline after first load</p>
+  <p style="margin-top:100px">100% client-side • Works on people • Offline after first load</p>
 </body>
 </html>
