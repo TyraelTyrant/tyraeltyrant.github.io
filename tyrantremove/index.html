@@ -1,34 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Background Image Remover</title>
+<html>
+<head>
+  <title>TyrantRemove</title>
+  <style>
+    body {font-family:Arial;background:#111;color:#0f0;text-align:center;padding:30px;}
+    h1 {color:#0f0;}
+    #drop {border:4px dashed #0f0;padding:60px;border-radius:20px;margin:30px auto;max-width:700px;background:#222;cursor:pointer;}
+    canvas {max-width:90%;margin:30px auto;display:none;border-radius:15px;box-shadow:0 0 30px #0f088;}
+    button {padding:15px 30px;font-size:18px;background:#0f0;color:#000;border:none;border-radius:10px;cursor:pointer;}
+  </style>
+</head>
+<body>
+  <h1>TyrantRemove</h1>
+  <p>Drop your selfie anywhere — works offline after first load</p>
+  <div id="drop">DROP SELFIE HERE<br><br>
+    <button onclick="document.getElementById('file').click()">Choose File</button>
+    <input type="file" id="file" accept="image/*" style="display:none">
+  </div>
+  <canvas id="out"></canvas>
+  <p id="status">Loading AI model… (10–20 sec first time only)</p>
 
-    <meta name="keywords" content="background image remover, remove background free, remove bg" />
-    <meta name="author" content="Addy Osmani and Transformers.js" />
-    <link rel="favicon" href="favicon.ico" />
-    <meta name="description" content="Remove image backgrounds automatically in seconds with just one click. Don't spend hours manually doing it yourself. " />
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.21.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.2.1"></script>
+  <script>
+    const canvas = document.getElementById('out');
+    const ctx = canvas.getContext('2d');
+    const status = document.getElementById('status');
+    let model = null;
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://bg.addy.ie/" />
-    <meta property="og:title" content="Background Image Remover" />
-    <meta property="og:description" content="Remove image backgrounds automatically in seconds with just one click. Don't spend hours manually doing it yourself. " />
-    <meta property="og:image" content="https://bg.addy.ie/meta.jpg" />
+    bodyPix.load().then(m => {
+      model = m;
+      status.textContent = "Ready! Drop your selfie now";
+    });
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://bg.addy.ie/" />
-    <meta property="twitter:title" content="Background Image Remover" />
-    <meta property="twitter:description" content="Remove image backgrounds automatically in seconds with just one click. Don't spend hours manually doing it yourself. " />
-    <meta property="twitter:image" content="https://bg.addy.ie/meta.jpg" />
-    <script type="module" crossorigin src="/assets/index-CD82NZ-B.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/vendor-hNfcizNV.js">
-    <link rel="modulepreload" crossorigin href="/assets/transformers-BOsqbiXW.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-ofHunnQK.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+    function process(file) {
+      if (!file) return;
+      const img = new Image();
+      img.onload = async () => {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        canvas.style.display = 'block';
+
+        if (!model) { alert("Still loading model… wait 5 more sec"); return; }
+        status.textContent = "Removing background…";
+
+        const { data: mask } = await model.segmentPerson(img);
+        const bytes = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < mask.length; i++) {
+          if (!mask[i]) bytes.data[i*4 + 3] = 0;
+        }
+        ctx.putImageData(bytes, 0, 0);
+        status.textContent = "DONE! Right-click → Save as PNG";
+      };
+      img.src = URL.createObjectURL(file);
+    }
+
+    document.getElementById('file').onchange = e => process(e.target.files[0]);
+    document.body.ondragover = e => e.preventDefault();
+    document.body.ondrop = e => { e.preventDefault(); process(e.dataTransfer.files[0]); };
+  </script>
+</body>
 </html>
