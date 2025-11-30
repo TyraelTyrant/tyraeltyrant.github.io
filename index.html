@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>TyraelTyrant • TyrantToolz</title>
+<title>TyraelTyrant</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
   html, body {margin:0;padding:0;height:100%;overflow:hidden}
@@ -22,10 +22,10 @@
     pointer-events:none;z-index:2;
   }
 
-  /* LIFTED UP — plenty of room from footer */
+  /* RAISED EVEN HIGHER — perfect balance */
   .main-wrapper {
     position:absolute;
-    top:44%;                     /* ← lifted way up */
+    top:42%;                     /* ← lifted higher */
     left:50%;
     transform:translate(-50%,-50%);
     text-align:center;
@@ -34,28 +34,21 @@
 
   h1 {
     font-family:'Orbitron',sans-serif;
-    font-size:clamp(70px, 11vw, 160px);
-    margin:0 0 20px;
+    font-size:clamp(80px, 12vw, 180px);
+    margin:0 0 60px;
     background:linear-gradient(90deg,#0ff,#f0f,#ff0,#0ff);
     background-clip:text;
     -webkit-background-clip:text;
     color:transparent;
-    text-shadow:0 0 80px #0ff;
-    letter-spacing:14px;
+    text-shadow:0 0 90px #0ff;
+    letter-spacing:16px;
     animation:glow 4s infinite alternate;
     white-space:nowrap;
     line-height:1;
   }
   @keyframes glow {
-    from {text-shadow:0 0 80px #0ff}
-    to {text-shadow:0 0 120px #0ff,0 0 180px #ff00ff}
-  }
-
-  .tagline {
-    font-size:clamp(30px, 4.5vw, 52px);
-    margin:0 0 80px;
-    text-shadow:0 0 35px #0ff;
-    opacity:0.9;
+    from {text-shadow:0 0 90px #0ff}
+    to {text-shadow:0 0 140px #0ff,0 0 200px #ff00ff}
   }
 
   .card {
@@ -63,25 +56,25 @@
     border:5px solid #0ff;
     padding:50px 60px;
     border-radius:30px;
-    box-shadow:0 0 90px #0ff;
-    backdrop-filter:blur(12px);
+    box-shadow:0 0 100px #0ff;
+    backdrop-filter:blur(14px);
     max-width:600px;
     margin:0 auto;
   }
-  .card h2 {margin:0 0 25px;color:#0ff;text-shadow:0 0 30px;font-size:38px}
-  .card p {margin:25px 0;opacity:0.95;line-height:1.6;font-size:18px}
+  .card h2 {margin:0 0 25px;color:#0ff;text-shadow:0 0 35px;font-size:42px}
+  .card p {margin:25px 0;opacity:0.95;line-height:1.6;font-size:19px}
   .card a {
-    background:#0ff;color:#000;padding:20px 90px;
+    background:#0ff;color:#000;padding:22px 100px;
     font-weight:bold;text-decoration:none;display:inline-block;
-    margin-top:30px;border-radius:50px;
-    box-shadow:0 0 50px #0ff;transition:0.4s;font-size:22px;
+    margin-top:35px;border-radius:50px;
+    box-shadow:0 0 60px #0ff;transition:0.4s;font-size:24px;
   }
-  .card a:hover {background:#ff00ff;color:#fff;box-shadow:0 0 80px #ff00ff;transform:scale(1.1)}
+  .card a:hover {background:#ff00ff;color:#fff;box-shadow:0 0 90px #ff00ff;transform:scale(1.1)}
 
   .footer-bar {
-    position:fixed;bottom:40px;left:50%;transform:translateX(-50%);
+    position:fixed;bottom:50px;left:50%;transform:translateX(-50%);
     background:rgba(0,0,0,0.7);border:2px solid #0ff;
-    padding:15px 60px;box-shadow:0 0 40px #0ff;z-index:999;
+    padding:15px 70px;box-shadow:0 0 50px #0ff;z-index:999;
     display:flex;align-items:center;gap:15px;font-size:16px;
   }
   .footer-bar a {color:#0ff;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
@@ -95,11 +88,10 @@
 
 <div class="main-wrapper">
   <h1>TYRAELTYRANT</h1>
-  <p class="tagline">TyrantToolz</p>
 
   <div class="card">
     <h2>TYRANT RESOLVE v1.0</h2>
-    <p>DaVinci Resolve markers → perfect SRT subtitles<br>25 markers tested • instant sync</p>
+    <p>DaVinci Resolve markers → perfect SRT subtitles<br>quick and easy • instant sync</p>
     <a href="https://tyrantresolve.onrender.com/" target="_blank">[ LAUNCH TOOL ]</a>
   </div>
 </div>
