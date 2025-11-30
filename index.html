@@ -22,25 +22,24 @@
     pointer-events:none;z-index:2;
   }
 
-  /* Perfect centering + lifted + smaller */
   .center {
     position:absolute;top:46%;left:50%;transform:translate(-50%,-50%);
     text-align:center;z-index:3;
-    width:90%;max-width:700px; /* Smaller, cleaner */
+    width:95%;max-width:800px;
   }
 
   h1 {
     font-family:'Orbitron',sans-serif;
-    font-size:9vw;
-    max-font-size:100px;
+    font-size:clamp(60px, 10vw, 140px); /* NEVER cuts off again */
     margin:0 0 15px;
     background:linear-gradient(90deg,#0ff,#f0f,#ff0,#0ff);
     background-clip:text;
     -webkit-background-clip:text;
     color:transparent;
     text-shadow:0 0 60px #0ff;
-    letter-spacing:8px;
+    letter-spacing:12px;
     animation:glow 4s infinite alternate;
+    white-space:nowrap; /* Critical — prevents wrapping */
   }
   @keyframes glow {
     from {text-shadow:0 0 60px #0ff}
@@ -48,8 +47,7 @@
   }
 
   .tagline {
-    font-size:3.8vw;
-    max-font-size:42px;
+    font-size:clamp(28px, 4vw, 48px);
     margin:0 0 50px;
     text-shadow:0 0 30px #0ff;
     opacity:0.9;
@@ -63,37 +61,14 @@
     box-shadow:0 0 70px #0ff;
     backdrop-filter:blur(10px);
   }
-  .card h2 {
-    margin:0 0 20px;
-    color:#0ff;
-    text-shadow:0 0 25px;
-    font-size:34px;
-  }
-  .card p {
-    margin:20px 0;
-    opacity:0.9;
-    line-height:1.6;
-    font-size:17px;
-  }
+  .card h2 {margin:0 0 20px;color:#0ff;text-shadow:0 0 25px;font-size:34px}
+  .card p {margin:20px 0;opacity:0.9;line-height:1.6;font-size:17px}
   .card a {
-    background:#0ff;
-    color:#000;
-    padding:18px 70px;
-    font-weight:bold;
-    text-decoration:none;
-    display:inline-block;
-    margin-top:25px;
-    border-radius:50px;
-    box-shadow:0 0 40px #0ff;
-    transition:0.4s;
-    font-size:20px;
+    background:#0ff;color:#000;padding:18px 70px;font-weight:bold;
+    text-decoration:none;display:inline-block;margin-top:25px;
+    border-radius:50px;box-shadow:0 0 40px #0ff;transition:0.4s;font-size:20px;
   }
-  .card a:hover {
-    background:#ff00ff;
-    color:#fff;
-    box-shadow:0 0 70px #ff00ff;
-    transform:scale(1.1);
-  }
+  .card a:hover {background:#ff00ff;color:#fff;box-shadow:0 0 70px #ff00ff;transform:scale(1.1)}
 
   .footer-bar {
     position:fixed;bottom:40px;left:50%;transform:translateX(-50%);
