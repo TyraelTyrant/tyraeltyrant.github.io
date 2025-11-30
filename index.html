@@ -22,21 +22,23 @@
     pointer-events:none;z-index:2;
   }
 
+  /* Lifted content — no more cutoff */
   .center {
-    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-    text-align:center;z-index:3;width:90%;max-width:800px;
+    position:absolute;top:48%;left:50%;transform:translate(-50%,-50%);
+    text-align:center;z-index:3;width:95%;max-width:900px;
   }
 
   h1 {
     font-family:'Orbitron',sans-serif;
-    font-size:120px;
-    margin:0 0 20px;
+    font-size:10vw;               /* Responsive size — never cuts off */
+    max-font-size:140px;
+    margin:0 0 10px;
     background:linear-gradient(90deg,#0ff,#f0f,#ff0,#0ff);
     background-clip:text;
     -webkit-background-clip:text;
     color:transparent;
     text-shadow:0 0 60px #0ff;
-    letter-spacing:15px;
+    letter-spacing:10px;
     animation:glow 4s infinite alternate;
   }
   @keyframes glow {
@@ -45,8 +47,9 @@
   }
 
   .tagline {
-    font-size:42px;
-    margin:0 0 80px;
+    font-size:4.5vw;
+    max-font-size:48px;
+    margin:0 0 60px;
     text-shadow:0 0 30px #0ff;
     opacity:0.9;
   }
@@ -63,7 +66,7 @@
     margin:0 0 25px;
     color:#0ff;
     text-shadow:0 0 30px;
-    font-size:40px;
+    font-size:38px;
   }
   .card p {
     margin:25px 0;
